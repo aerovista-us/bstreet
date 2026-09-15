@@ -1,0 +1,37 @@
+name: Build homeowner index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'AV_1011_N_B_ST_HOMEOWNER_EXIT_POWERHOUSE_MASTER_COMPLETE_2026-09-15.html'
+      - 'scripts/build_index.py'
+      - '.github/workflows/build-index.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install builder dependency
+        run: python -m pip install --disable-pip-version-check beautifulsoup4
+      - name: Build root site from Powerhouse
+        run: python scripts/build_index.py
+      - name: Commit generated index
+        run: |
+          if git diff --quiet -- index.html; then
+            echo 'index.html already current'
+            exit 0
+          fi
+          git config user.name 'AeroVista Build'
+          git config user.email 'aerovistaus@gmail.com'
+          git add index.html
+          git commit -m 'Promote Powerhouse to root index with owner dashboard and Bytecast'
+          git push
