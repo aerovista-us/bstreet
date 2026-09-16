@@ -53,7 +53,7 @@ The **1011 homeowner is the decision-maker and contracting party**.
 
 ## Build flow
 
-`scripts/build_index.py` builds the root `index.html` from the archived MASTER COMPLETE Powerhouse. `.github/workflows/build-index.yml` runs the builder when the Powerhouse, builder, or workflow changes and commits the generated root page if needed.
+`scripts/build_index.py` builds the base root `index.html` from the archived MASTER COMPLETE Powerhouse. `scripts/enhance_index.py` then folds in the paid-BLA lane, negotiation assistance, dashboard action lanes, global search, focus mode, mobile controls, and document-specific print surfaces without changing the canonical MASTER COMPLETE source. `.github/workflows/build-index.yml` runs both stages, smoke-tests the result, and commits the generated root page if needed.
 
 This preserves a clean rule: **the Powerhouse is the source; `index.html` is the production presentation of that same Powerhouse.**
 
@@ -66,7 +66,15 @@ This preserves a clean rule: **the Powerhouse is the source; `index.html` is the
 - [`docs/PAID_FALLBACK.md`](docs/PAID_FALLBACK.md) — negotiation path if the gift is declined, including authority limits and scripts.
 - [`docs/SOURCE_REGISTER.md`](docs/SOURCE_REGISTER.md) — official-source map and unresolved diligence checklist.
 - [`docs/BYTECAST_OWNER_BRIEFING.md`](docs/BYTECAST_OWNER_BRIEFING.md) — audio briefing source copy.
+- [`docs/DEPLOYMENT_QA.md`](docs/DEPLOYMENT_QA.md) — production URL, build pipeline, QA gates and public-site privacy note.
 
 ## Professional gates
 
 Do not rely on a future two-lot sale until a licensed survey, title review and written City direction support the geometry. Use Idaho counsel/title to finalize binding neighbor documents and the deed; use the mortgage servicer for release/recast/payoff rules; use a CPA for tax sequencing.
+
+
+## Production presentation
+
+The root dashboard is the front door, while the full MASTER COMPLETE remains available section-by-section underneath it. Document-heavy sections provide **Print document** actions so the homeowner can print only the gift packet, same-day agreement, paid frontage packet, negotiation guide, document kit, or research record without printing the entire site.
+
+The production URL is `https://aerovista-us.github.io/bstreet/`. The repository and GitHub Pages site are public. Because this is owner-side strategy material, the generated site includes `noindex` metadata and the repository includes `robots.txt` requesting that search crawlers not index the site. Those measures reduce discoverability but are **not access control**; anyone with the direct URL can still view the site.
